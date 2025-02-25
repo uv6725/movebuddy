@@ -1,0 +1,128 @@
+{
+  "version": "1.0.0",
+  "framework": {
+    "priorities": {
+      "P0": {
+        "name": "Module Isolation",
+        "rules": [
+          "Each module must be self-contained",
+          "Changes to one module must NOT modify imports or code in other modules",
+          "Dashboard integration points must remain untouched unless explicitly working on them",
+          "Module routing structure must stay intact",
+          "Never remove or modify shared components without explicit approval"
+        ],
+        "neverSkip": true
+      },
+      "P1": {
+        "name": "Dashboard Integrity",
+        "rules": [
+          "Dashboard must continue to render all module entry points",
+          "Navigation between modules must remain functional",
+          "Module lazy loading patterns must be preserved",
+          "State management connections must stay intact",
+          "Shared layouts must remain consistent"
+        ],
+        "checkBeforeChanges": true
+      },
+      "P2": {
+        "name": "Module-Specific Changes",
+        "rules": [
+          "Keep changes contained within the target module's directory",
+          "Preserve existing prop interfaces between module and dashboard",
+          "Maintain module-specific routing patterns",
+          "Keep module-specific state management isolated",
+          "Document any new dependencies added to the module"
+        ]
+      }
+    },
+    "safetyChecklist": [
+      "MODULE ISOLATION: Check working directory matches target module",
+      "DASHBOARD HEALTH: Verify dashboard still renders correctly",
+      "NAVIGATION: Test routes to and from modified module",
+      "DEPENDENCIES: Confirm no unintended changes to package.json",
+      "STATE: Verify state management remains isolated"
+    ],
+    "riskAreas": {
+      "componentDependencies": {
+        "rules": [
+          "Never modify shared components in /components without review",
+          "Keep new components within module directory",
+          "Use composition over modification for shared component changes"
+        ]
+      },
+      "routingStructure": {
+        "rules": [
+          "Preserve existing route patterns",
+          "Don't modify parent routes when working on child routes",
+          "Keep lazy loading boundaries intact"
+        ]
+      },
+      "stateManagement": {
+        "rules": [
+          "Maintain clear state boundaries between modules",
+          "Don't modify global state when working on local state",
+          "Keep module state contained within its directory"
+        ]
+      },
+      "packageDependencies": {
+        "rules": [
+          "Add new dependencies only to relevant module",
+          "Document shared dependency changes",
+          "Watch for dependency version conflicts"
+        ]
+      }
+    },
+    "issueProtocol": {
+      "steps": [
+        "Immediately record which files were modified",
+        "Check git diff for unintended changes",
+        "Review module boundaries",
+        "Document any required cross-module changes",
+        "Seek review for changes affecting multiple modules"
+      ]
+    },
+    "moduleTypes": {
+      "coreDashboard": {
+        "responsibilities": [
+          "Entry point for all modules",
+          "Global navigation",
+          "Shared layouts",
+          "Module loading"
+        ]
+      },
+      "featureModules": {
+        "responsibilities": [
+          "Self-contained functionality",
+          "Internal routing",
+          "Local state management",
+          "Module-specific components"
+        ]
+      },
+      "sharedInfrastructure": {
+        "responsibilities": [
+          "Component library",
+          "Utilities",
+          "Types",
+          "Constants"
+        ]
+      }
+    },
+    "keyPrinciples": {
+      "boundaries": [
+        "Clear module separation",
+        "Explicit integration points",
+        "Documented dependencies"
+      ],
+      "verification": [
+        "Test module in isolation",
+        "Verify dashboard integration",
+        "Check other modules remain functional"
+      ],
+      "documentation": [
+        "Note cross-module dependencies",
+        "Document integration points",
+        "Track shared component usage"
+      ]
+    }
+  }
+}
